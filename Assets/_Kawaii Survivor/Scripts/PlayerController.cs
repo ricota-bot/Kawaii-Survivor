@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float _moveSpeed;
 
-    private void Update()
+    private void FixedUpdate()
     {
         PlayerMovement();
     }
