@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Elements")]
     [SerializeField] private Rigidbody2D _rigidbody2D;
+    [SerializeField] private MobileJoystick _mobileJoystick;
 
-    [SerializeField] private float _movementSpeed;
+    [Header("Settings")]
+    [SerializeField] private float _moveSpeed;
+
     private void Update()
     {
         PlayerMovement();
@@ -14,9 +18,6 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        _rigidbody2D.velocity += new Vector2(horizontal * _movementSpeed, vertical * _movementSpeed) * Time.deltaTime;
+        _rigidbody2D.velocity = _mobileJoystick.GetMoveVector() * _moveSpeed * Time.deltaTime;
     }
 }
