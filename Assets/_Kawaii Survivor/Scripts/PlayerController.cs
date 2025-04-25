@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     [Header("Elements")]
@@ -18,6 +19,6 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement()
     {
-        _rigidbody2D.velocity = _mobileJoystick.GetMoveVector() * _moveSpeed * Time.deltaTime;
+        _rigidbody2D.linearVelocity = _mobileJoystick.GetMoveVector() * _moveSpeed * Time.deltaTime;
     }
 }
