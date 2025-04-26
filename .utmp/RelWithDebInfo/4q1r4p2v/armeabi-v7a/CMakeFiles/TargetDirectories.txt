@@ -1,0 +1,5 @@
+D:/NEW/Unity Projects/Kawaii-Survivor/.utmp/RelWithDebInfo/4q1r4p2v/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/NEW/Unity Projects/Kawaii-Survivor/.utmp/RelWithDebInfo/4q1r4p2v/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+D:/NEW/Unity Projects/Kawaii-Survivor/.utmp/RelWithDebInfo/4q1r4p2v/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+D:/NEW/Unity Projects/Kawaii-Survivor/.utmp/RelWithDebInfo/4q1r4p2v/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+D:/NEW/Unity Projects/Kawaii-Survivor/.utmp/RelWithDebInfo/4q1r4p2v/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir
