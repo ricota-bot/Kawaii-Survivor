@@ -13,6 +13,11 @@ public class EnemyMovement : MonoBehaviour
     [Header("Elements")]
     private Player _player;
 
+    [Header("Spawn Sequence Related")]
+    [SerializeField] private SpriteRenderer _enemyRenderer;
+    [SerializeField] private SpriteRenderer _spawnIndicatorRenderer;
+    private bool _hasSpawned;
+
     [Header("Settings")]
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private EnemyMovementType _movementType;
@@ -29,6 +34,11 @@ public class EnemyMovement : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool displayGizmos;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem _particleSystem;
+
+
+
 
     private void Start()
     {
@@ -36,13 +46,41 @@ public class EnemyMovement : MonoBehaviour
 
         if (_player == null)
             Destroy(gameObject);
+
+        // Hide Enemy Renderer
+        _enemyRenderer.enabled = false;
+        // Show the Spawn Indicator  (Prevent Following & Attacking during the Spawn Sequence) Velocity equals ZERO ?
+        _spawnIndicatorRenderer.enabled = true;
+
+        // Scale up & Scale Down the Spawn Indicator using Tween Library
+        // After 4 seconds Show the Enemy Renderer
+        Vector3 targetScale = _spawnIndicatorRenderer.transform.localScale * 1.2f;
+        LeanTween.scale(_spawnIndicatorRenderer.gameObject, targetScale, 0.3f)
+            .setLoopPingPong(4)
+            .setOnComplete(SpawnSequenceCompleted);
+
+        // Hide The Spawn Indicator
     }
 
     private void Update()
     {
+        if (!_hasSpawned) // Se não foi Spawnado o Enemy, então apenas retornamos "hasSpawned == false"
+            return;
+
         MoveEnemyToPlayer();
         EnemyNearlyToPlayer();
     }
+
+    private void SpawnSequenceCompleted()
+    {
+        // Disable SpawnIndicator
+        _spawnIndicatorRenderer.enabled = false;
+        // Enable Enemy Renderer
+        _enemyRenderer.enabled = true;
+        // Set Spawned to True to move the Enemy Again
+        _hasSpawned = true;
+    }
+
     private void MoveEnemyToPlayer()
     {
         if (_player == null)
@@ -83,6 +121,13 @@ public class EnemyMovement : MonoBehaviour
     private void TryAttack()
     {
         Debug.Log("Atack Atack Atack..... bAW BAW BAW");
+        EnemyDeath();
+    }
+
+    private void EnemyDeath()
+    {
+        _particleSystem.transform.parent = null;
+        _particleSystem.Play();
         Destroy(gameObject);
     }
 
