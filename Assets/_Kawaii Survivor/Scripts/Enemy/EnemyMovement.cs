@@ -13,11 +13,6 @@ public class EnemyMovement : MonoBehaviour
     [Header("Elements")]
     private Player _player;
 
-    [Header("Spawn Sequence Related")]
-    [SerializeField] private SpriteRenderer _enemyRenderer;
-    [SerializeField] private SpriteRenderer _spawnIndicatorRenderer;
-    private bool _hasSpawned;
-
     [Header("Settings")]
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private EnemyMovementType _movementType;
@@ -28,57 +23,15 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float _wobbleIntensity = 0.3f;
     [SerializeField] private float _wobbleSpeed = 1.5f;
 
-    [Header("Detection Radius")]
-    [SerializeField] private float playerDetectRadius;
-
-    [Header("Debug")]
-    [SerializeField] private bool displayGizmos;
-
-    [Header("Particles")]
-    [SerializeField] private ParticleSystem _particleSystem;
-
-
-
-
-    private void Start()
-    {
-        _player = FindFirstObjectByType<Player>();
-
-        if (_player == null)
-            Destroy(gameObject);
-
-        // Hide Enemy Renderer
-        _enemyRenderer.enabled = false;
-        // Show the Spawn Indicator  (Prevent Following & Attacking during the Spawn Sequence) Velocity equals ZERO ?
-        _spawnIndicatorRenderer.enabled = true;
-
-        // Scale up & Scale Down the Spawn Indicator using Tween Library
-        // After 4 seconds Show the Enemy Renderer
-        Vector3 targetScale = _spawnIndicatorRenderer.transform.localScale * 1.2f;
-        LeanTween.scale(_spawnIndicatorRenderer.gameObject, targetScale, 0.3f)
-            .setLoopPingPong(4)
-            .setOnComplete(SpawnSequenceCompleted);
-
-        // Hide The Spawn Indicator
-    }
-
     private void Update()
     {
-        if (!_hasSpawned) // Se não foi Spawnado o Enemy, então apenas retornamos "hasSpawned == false"
-            return;
-
-        MoveEnemyToPlayer();
-        EnemyNearlyToPlayer();
+        if (_player != null)
+            MoveEnemyToPlayer();
     }
 
-    private void SpawnSequenceCompleted()
+    public void StorePlayer(Player player)
     {
-        // Disable SpawnIndicator
-        _spawnIndicatorRenderer.enabled = false;
-        // Enable Enemy Renderer
-        _enemyRenderer.enabled = true;
-        // Set Spawned to True to move the Enemy Again
-        _hasSpawned = true;
+        _player = player;
     }
 
     private void MoveEnemyToPlayer()
@@ -108,27 +61,6 @@ public class EnemyMovement : MonoBehaviour
                 MoveSuperExpressive();
                 break;
         }
-    }
-
-    private void EnemyNearlyToPlayer()
-    {
-        float distanceToPlayer = Vector2.Distance(transform.position, _player.transform.position);
-
-        if (distanceToPlayer <= playerDetectRadius)
-            TryAttack();
-    }
-
-    private void TryAttack()
-    {
-        Debug.Log("Atack Atack Atack..... bAW BAW BAW");
-        EnemyDeath();
-    }
-
-    private void EnemyDeath()
-    {
-        _particleSystem.transform.parent = null;
-        _particleSystem.Play();
-        Destroy(gameObject);
     }
 
     #region Different Movements Paths
@@ -203,13 +135,4 @@ public class EnemyMovement : MonoBehaviour
 
     #endregion
 
-
-    private void OnDrawGizmos()
-    {
-        if (!displayGizmos)
-            return;
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(this.transform.position, playerDetectRadius);
-    }
 }
