@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3035960398352346647}
   - component: {fileID: 6591550756463269915}
   - component: {fileID: 7554949510283217111}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 3403324633142184824}
   - component: {fileID: 5323267120855296953}
   - component: {fileID: 6960619073886985291}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spawn Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,8 @@ GameObject:
   - component: {fileID: 1830065924774033897}
   - component: {fileID: 8328630456825930956}
   - component: {fileID: 3481476814642248677}
-  m_Layer: 0
+  - component: {fileID: 7441296338123007358}
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +254,7 @@ MonoBehaviour:
   _enemyRenderer: {fileID: 6591550756463269915}
   _spawnIndicatorRenderer: {fileID: 5323267120855296953}
   playerDetectRadius: 0.5
-  displayGizmos: 1
+  displayGizmos: 0
   _particleSystem: {fileID: 5453572096296380755}
   _damage: 1
   _attackFrequency: 1
@@ -275,6 +276,42 @@ MonoBehaviour:
   _curveIntensity: 0.5
   _wobbleIntensity: 0.3
   _wobbleSpeed: 1.5
+--- !u!58 &7441296338123007358
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7536033176947990102}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.045517445, y: 0.33667052}
+  m_Radius: 0.41606426
 --- !u!1 &8802242542032712042
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +323,7 @@ GameObject:
   - component: {fileID: 49682640039207808}
   - component: {fileID: 5453572096296380755}
   - component: {fileID: 6926131156657436279}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy Death Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
