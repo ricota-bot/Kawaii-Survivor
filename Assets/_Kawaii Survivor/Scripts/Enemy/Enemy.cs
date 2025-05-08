@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyMovement))]
@@ -7,6 +8,10 @@ public class Enemy : MonoBehaviour
     private Player _player;
     private EnemyMovement _enemyMovement;
 
+    [Header("Enemy Health")]
+    [SerializeField] private int _maxHealth;
+    [SerializeField] private TextMeshPro _healthText;
+    private int _health;
 
     [Header("Spawn Sequence Related")]
     [SerializeField] private SpriteRenderer _enemyRenderer;
@@ -26,13 +31,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private float _attackFrequency;
     private float _attackDelay; // Set this on in Inspector
-    private float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay mad somethinng..
+    private float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay made somethinng..
 
 
     private void Start()
     {
         _player = FindFirstObjectByType<Player>();
         _enemyMovement = GetComponent<EnemyMovement>();
+
+        _health = _maxHealth;
+        _healthText.text = _health.ToString();
 
         if (_player == null)
             Destroy(gameObject);
@@ -103,11 +111,23 @@ public class Enemy : MonoBehaviour
         _attackTimer += Time.deltaTime;
     }
 
-    private void EnemyDeath()
+    public void PassWay()
     {
         _particleSystem.transform.parent = null;
         _particleSystem.Play();
         Destroy(gameObject);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        int realDamage = Mathf.Min(damage, _health);
+
+        _health -= realDamage;
+
+        _healthText.text = _health.ToString();
+
+        if (_health <= 0)
+            PassWay();
     }
 
     private void OnDrawGizmos()
