@@ -118,7 +118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &54367066564033550
 RectTransform:
   m_ObjectHideFlags: 0
@@ -432,6 +432,7 @@ MonoBehaviour:
   _healthText: {fileID: 3951942348096594809}
   _enemyRenderer: {fileID: 6591550756463269915}
   _spawnIndicatorRenderer: {fileID: 5323267120855296953}
+  _enemyCollider: {fileID: 7441296338123007358}
   playerDetectRadius: 0.5
   displayGizmos: 0
   _particleSystem: {fileID: 5453572096296380755}
@@ -462,7 +463,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7536033176947990102}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

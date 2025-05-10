@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class Enemy : MonoBehaviour
     [Header("Spawn Sequence Related")]
     [SerializeField] private SpriteRenderer _enemyRenderer;
     [SerializeField] private SpriteRenderer _spawnIndicatorRenderer;
+    [SerializeField] private Collider2D _enemyCollider;
 
 
     [Header("Detection Radius")]
@@ -33,6 +35,8 @@ public class Enemy : MonoBehaviour
     private float _attackDelay; // Set this on in Inspector
     private float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay made somethinng..
 
+    [Header("Actions")]
+    public static Action<Vector2, int> OnDamageTaken;
 
     private void Start()
     {
@@ -77,7 +81,9 @@ public class Enemy : MonoBehaviour
         SetEnemyRendererVisibility();
         // Set Spawned to True to move the Enemy Again
         //_hasSpawned = true;
+        _enemyCollider.enabled = true;
         _enemyMovement.StorePlayer(_player);
+
     }
 
     /// <summary>
@@ -128,6 +134,8 @@ public class Enemy : MonoBehaviour
 
         if (_health <= 0)
             PassWay();
+
+        OnDamageTaken?.Invoke(transform.position, realDamage);
     }
 
     private void OnDrawGizmos()
@@ -138,4 +146,6 @@ public class Enemy : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(this.transform.position, playerDetectRadius);
     }
+
+    public Vector2 GetEnemyPosition() => transform.position;
 }

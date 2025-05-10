@@ -21,9 +21,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int _weaponDamage;
     [SerializeField] private Animator _animator;
     private List<Enemy> _damagedEnemiesList = new List<Enemy>();
-    [SerializeField] private float _attackFrequency;
-    private float _attackDelay; // Set this on in Inspector
+
+    [SerializeField] private float _attackDelay;
     private float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay made somethinng..
+    private float _attackFrequency;
 
     [Header("Animations")]
     [SerializeField] private float _aimLerp;
@@ -34,8 +35,6 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         _state = State.Idle;
-
-        _attackDelay = 1f / _attackFrequency; // This represent how much attack your deal by seconds if attaFrequency is 2 you make 2 attack per second...
     }
 
     private void Update()
@@ -61,8 +60,9 @@ public class Weapon : MonoBehaviour
 
         if (closestEnemy != null)
         {
-            ManageAttack();
             targetUpVector = (closestEnemy.transform.position - transform.position).normalized;
+            transform.up = targetUpVector;
+            ManageAttack();
         }
 
         transform.up = Vector3.Lerp(transform.up, targetUpVector, Time.deltaTime * _aimLerp);
@@ -89,7 +89,7 @@ public class Weapon : MonoBehaviour
         _state = State.Attack;
 
         _damagedEnemiesList.Clear();
-
+        _animator.speed = 1f / _attackDelay;
     }
 
     private void Attacking()
@@ -124,11 +124,6 @@ public class Weapon : MonoBehaviour
 
             // 3. If Yes, let's continue, check the next enemy
         }
-
-    }
-
-    private void Wait()
-    {
 
     }
 
