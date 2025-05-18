@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private int _weaponDamage;
     [SerializeField] private Animator _animator;
-    private List<Enemy> _damagedEnemiesList = new List<Enemy>();
+    private List<MeleeEnemy> _damagedEnemiesList = new List<MeleeEnemy>();
 
     [SerializeField] private float _attackDelay;
     private float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay made somethinng..
@@ -54,7 +54,7 @@ public class Weapon : MonoBehaviour
 
     private void AutoAim()
     {
-        Enemy closestEnemy = GetClosestEnemy();
+        MeleeEnemy closestEnemy = GetClosestEnemy();
 
         Vector2 targetUpVector = Vector3.up;
 
@@ -112,7 +112,7 @@ public class Weapon : MonoBehaviour
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            Enemy enemy = enemies[i].GetComponent<Enemy>();
+            MeleeEnemy enemy = enemies[i].GetComponent<MeleeEnemy>();
             // 1. Is the enemy inside of the List ?
             if (!_damagedEnemiesList.Contains(enemy)) // Não esta dentro da Lista
             {
@@ -127,9 +127,9 @@ public class Weapon : MonoBehaviour
 
     }
 
-    private Enemy GetClosestEnemy()
+    private MeleeEnemy GetClosestEnemy()
     {
-        Enemy closestEnemy = null;
+        MeleeEnemy closestEnemy = null;
 
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, _range, _layerMask);
 
@@ -141,7 +141,7 @@ public class Weapon : MonoBehaviour
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            Enemy enemyChecked = enemies[i].GetComponent<Enemy>();
+            MeleeEnemy enemyChecked = enemies[i].GetComponent<MeleeEnemy>();
 
             float distanceToEnemy = Vector2.Distance(transform.position, enemyChecked.transform.position);
 

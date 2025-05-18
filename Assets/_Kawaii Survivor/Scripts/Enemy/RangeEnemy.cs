@@ -2,16 +2,16 @@ using System;
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMovement))]
-public class Enemy : MonoBehaviour
+[RequireComponent(typeof(EnemyMovement), typeof(RangeEnemyAttack))]
+public class RangeEnemy : MonoBehaviour
 {
     [Header("Elements")]
     private Player _player;
     private EnemyMovement _enemyMovement;
+    private RangeEnemyAttack _rangeEnemyAttack;
 
     [Header("Enemy Health")]
     [SerializeField] private int _maxHealth;
-    [SerializeField] private TextMeshPro _healthText;
     private int _health;
 
     [Header("Spawn Sequence Related")]
@@ -19,51 +19,48 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer _spawnIndicatorRenderer;
     [SerializeField] private Collider2D _enemyCollider;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem _particleSystem;
 
     [Header("Detection Radius")]
     [SerializeField] private float playerDetectRadius;
 
-    [Header("Debug")]
-    [SerializeField] private bool displayGizmos;
-
-    [Header("Particles")]
-    [SerializeField] private ParticleSystem _particleSystem;
-
-    [Header("Attack")]
-    [SerializeField] private int _damage;
-    [SerializeField] private float _attackFrequency;
-    private float _attackDelay; // Set this on in Inspector
-    private float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay made somethinng..
 
     [Header("Actions")]
     public static Action<Vector2, int> OnDamageTaken;
+
+    [Header("Debug")]
+    [SerializeField] private bool displayGizmos;
+
+
 
     private void Start()
     {
         _player = FindFirstObjectByType<Player>();
         _enemyMovement = GetComponent<EnemyMovement>();
+        _rangeEnemyAttack = GetComponent<RangeEnemyAttack>();
+
+        _rangeEnemyAttack.StorePlayer(_player);
+
 
         _health = _maxHealth;
-        _healthText.text = _health.ToString();
 
         if (_player == null)
             Destroy(gameObject);
 
         StartSpawnSequence();
-
-        _attackDelay = 1f / _attackFrequency; // This represent how much attack your deal by seconds if attaFrequency is 2 you make 2 attack per second...
     }
+
 
     private void Update()
     {
-        if (_attackTimer >= _attackDelay)
-            EnemyNearlyToPlayer();
-        else
-        {
-            Wait();
-        }
+        if (!_enemyRenderer.enabled)
+            return;
+
+        ManageAttack();
     }
 
+    #region Spawn Sequence
     private void StartSpawnSequence()
     {
         SetEnemyRendererVisibility(false);
@@ -74,8 +71,6 @@ public class Enemy : MonoBehaviour
             .setLoopPingPong(4)
             .setOnComplete(SpawnSequenceCompleted);
     }
-
-
     private void SpawnSequenceCompleted()
     {
         SetEnemyRendererVisibility();
@@ -97,24 +92,27 @@ public class Enemy : MonoBehaviour
         _spawnIndicatorRenderer.enabled = !visibility;
     }
 
-    private void EnemyNearlyToPlayer()
+    #endregion
+
+    private void ManageAttack()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, _player.transform.position);
 
-        if (distanceToPlayer <= playerDetectRadius)
-            Attack();
+        if (distanceToPlayer > playerDetectRadius)
+        {
+            _enemyMovement.MoveKeepDistance();
+        }
+        else
+        {
+            TryAttack();
+        }
+
     }
 
-    private void Attack()
+    private void TryAttack()
     {
-        Debug.Log("Atack Atack Atack..... bAW BAW BAW");
-        _attackTimer = 0;
-
-        _player.TakeDamage(_damage);
-    }
-    private void Wait()
-    {
-        _attackTimer += Time.deltaTime;
+        _rangeEnemyAttack.AutoAim();
+        Debug.Log("Tento atacar!");
     }
 
     public void PassWay()
@@ -130,14 +128,13 @@ public class Enemy : MonoBehaviour
 
         _health -= realDamage;
 
-        _healthText.text = _health.ToString();
-
         if (_health <= 0)
             PassWay();
 
         OnDamageTaken?.Invoke(transform.position, realDamage);
     }
 
+    #region Gizmos
     private void OnDrawGizmos()
     {
         if (!displayGizmos)
@@ -147,5 +144,5 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(this.transform.position, playerDetectRadius);
     }
 
-    public Vector2 GetEnemyPosition() => transform.position;
+    #endregion
 }
