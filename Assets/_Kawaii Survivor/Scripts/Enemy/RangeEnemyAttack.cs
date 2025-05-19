@@ -32,7 +32,7 @@ public class RangeEnemyAttack : MonoBehaviour
     }
     private EnemyBullet CreateFunc()
     {
-        EnemyBullet bulletInstance = Instantiate(_bulletPrefab, _shootingPoint.position, Quaternion.identity, _shootingPoint);
+        EnemyBullet bulletInstance = Instantiate(_bulletPrefab, _shootingPoint.position, Quaternion.identity);
         bulletInstance.Configure(this);
         return bulletInstance;
     }

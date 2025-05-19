@@ -387,7 +387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1830065924774033897}
-  - component: {fileID: 8328630456825930956}
+  - component: {fileID: 6574916176138417923}
   - component: {fileID: 3481476814642248677}
   - component: {fileID: 7441296338123007358}
   m_Layer: 6
@@ -416,7 +416,7 @@ Transform:
   - {fileID: 54367066564033550}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8328630456825930956
+--- !u!114 &6574916176138417923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -425,17 +425,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7536033176947990102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b343f5be861c24a912ba820ce7c70c, type: 3}
+  m_Script: {fileID: 11500000, guid: a8ffb9043a2c2f746962d1af10864d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 10
-  _healthText: {fileID: 3951942348096594809}
   _enemyRenderer: {fileID: 6591550756463269915}
   _spawnIndicatorRenderer: {fileID: 5323267120855296953}
   _enemyCollider: {fileID: 7441296338123007358}
-  playerDetectRadius: 0.5
-  displayGizmos: 0
+  playerDetectRadius: 2
   _particleSystem: {fileID: 5453572096296380755}
+  displayGizmos: 1
   _damage: 1
   _attackFrequency: 1
 --- !u!114 &3481476814642248677
@@ -453,9 +452,7 @@ MonoBehaviour:
   _moveSpeed: 1
   _movementType: 0
   _safeDistance: 2
-  _curveIntensity: 0.5
-  _wobbleIntensity: 0.3
-  _wobbleSpeed: 1.5
+  enableGizmos: 0
 --- !u!58 &7441296338123007358
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -486,7 +483,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

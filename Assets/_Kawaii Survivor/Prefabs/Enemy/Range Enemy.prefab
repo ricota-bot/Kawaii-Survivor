@@ -387,9 +387,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7431682478048329917}
-  - component: {fileID: 7525676829515457455}
   - component: {fileID: 3844329709190412285}
   - component: {fileID: 1873996011063554690}
+  - component: {fileID: 7525676829515457455}
   - component: {fileID: 2406656250277978510}
   m_Layer: 6
   m_Name: Range Enemy
@@ -418,22 +418,6 @@ Transform:
   - {fileID: 597423602724454192}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7525676829515457455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7447257971816277170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b67fcb0c6371c47b34f7638b84d15d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 1
-  _movementType: 1
-  _safeDistance: 10
-  enableGizmos: 1
 --- !u!114 &3844329709190412285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,8 +434,8 @@ MonoBehaviour:
   _enemyRenderer: {fileID: 1475391231798300624}
   _spawnIndicatorRenderer: {fileID: 8143805363594301344}
   _enemyCollider: {fileID: 2406656250277978510}
-  _particleSystem: {fileID: 27141567021441795}
   playerDetectRadius: 10
+  _particleSystem: {fileID: 27141567021441795}
   displayGizmos: 1
 --- !u!114 &1873996011063554690
 MonoBehaviour:
@@ -469,6 +453,22 @@ MonoBehaviour:
   _bulletPrefab: {fileID: -5048362203090172118, guid: 33634926d1ef84742a0e4632bca426a5, type: 3}
   _damage: 1
   _attackFrequency: 1
+--- !u!114 &7525676829515457455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7447257971816277170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b67fcb0c6371c47b34f7638b84d15d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 1
+  _movementType: 1
+  _safeDistance: 10
+  enableGizmos: 1
 --- !u!58 &2406656250277978510
 CircleCollider2D:
   m_ObjectHideFlags: 0
