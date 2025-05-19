@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.Pool;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class RangeEnemyAttack : MonoBehaviour
 {
@@ -30,6 +29,8 @@ public class RangeEnemyAttack : MonoBehaviour
             ActionOnRelease,
             ActionOnDestroy);
     }
+
+    #region Object Pooling
     private EnemyBullet CreateFunc()
     {
         EnemyBullet bulletInstance = Instantiate(_bulletPrefab, _shootingPoint.position, Quaternion.identity);
@@ -58,6 +59,8 @@ public class RangeEnemyAttack : MonoBehaviour
         _bulletPool.Release(bullet);
         Debug.Log("Release!");
     }
+
+    #endregion
 
     public void StorePlayer(Player player) => _player = player;
 

@@ -81,8 +81,8 @@ public class Weapon : MonoBehaviour
     private void IncrementAttackTimer()
     {
         _attackTimer += Time.deltaTime;
-
     }
+
     private void StartAttack()
     {
         _animator.Play("Attack");
