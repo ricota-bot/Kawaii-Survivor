@@ -6,32 +6,30 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     enum State { Idle, Attack } // MY ENUM
-
     private State _state;
 
     [Header("Elements")]
     [SerializeField] private Transform hitDetectionTransform;
+    //[SerializeField] private BoxCollider2D _hitCollider; // Caso queira mudar o collider da melee ??
 
     [Header("Settings")]
-    [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private float _range;
+    [SerializeField] protected float _weaponRange;
     [SerializeField] private float _hitDetectionRadius;
+    [SerializeField] protected LayerMask _layerMask;
 
     [Header("Attack")]
-    [SerializeField] private int _weaponDamage;
-    [SerializeField] private Animator _animator;
-    private List<Enemy> _damagedEnemiesList = new List<Enemy>();
-
-    [SerializeField] private float _attackDelay;
-    private float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay made somethinng..
-    private float _attackFrequency;
+    [SerializeField] protected int _weaponDamage;
+    [SerializeField] protected float _attackDelay;
+    protected float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay made somethinng..
 
     [Header("Animations")]
-    [SerializeField] private float _aimLerp;
+    [SerializeField] protected Animator _animator;
+    [SerializeField] protected float _aimLerp;
 
     [Header("Debug")]
-    [SerializeField] private bool displayGizmos;
+    [SerializeField] protected bool displayGizmos;
 
+    private List<Enemy> _damagedEnemiesList = new List<Enemy>();
     private void Start()
     {
         _state = State.Idle;
@@ -127,17 +125,17 @@ public class Weapon : MonoBehaviour
 
     }
 
-    private Enemy GetClosestEnemy()
+    protected Enemy GetClosestEnemy()
     {
         Enemy closestEnemy = null;
 
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, _range, _layerMask);
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, _weaponRange, _layerMask);
 
         if (enemies.Length <= 0)
             return null;
 
 
-        float minDistance = _range;
+        float minDistance = _weaponRange;
 
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -161,9 +159,13 @@ public class Weapon : MonoBehaviour
             return;
 
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, _range);
+        Gizmos.DrawWireSphere(transform.position, _weaponRange);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(hitDetectionTransform.position, _hitDetectionRadius);
+        if (hitDetectionTransform != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(hitDetectionTransform.position, _hitDetectionRadius);
+
+        }
     }
 }

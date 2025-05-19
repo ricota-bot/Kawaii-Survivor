@@ -9,6 +9,7 @@ public class PlayerBullet : MonoBehaviour
     //private RangeEnemyAttack _rangeEnemyAttack;
 
     [Header("Settings")]
+    [SerializeField] private LayerMask _enemyMask;
     [SerializeField] private float _bulletSpeed;
     private int _bulletDamage; // Receive damage from another script
 
@@ -28,11 +29,20 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Enemy enemy))
+        if (IsInLayerMask(collision.gameObject.layer, _enemyMask))
         {
-            enemy.TakeDamage(_bulletDamage);
-            _bulletCollider.enabled = false;
-
+            Attack(collision.GetComponent<Enemy>());
+            Destroy(this.gameObject);
         }
+    }
+
+    private void Attack(Enemy enemy)
+    {
+        enemy.TakeDamage(_bulletDamage);
+    }
+
+    private bool IsInLayerMask(int layer, LayerMask layerMask)
+    {
+        return (layerMask.value & (1 << layer)) != 0;
     }
 }
