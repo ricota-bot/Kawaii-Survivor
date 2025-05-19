@@ -15,6 +15,7 @@ public class PlayerBullet : MonoBehaviour
 
     private RangeWeapon _rangeWeapon;
 
+    private Enemy _targetEnemy;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class PlayerBullet : MonoBehaviour
 
     public void Reload()
     {
+        _targetEnemy = null;
         _rig.linearVelocity = Vector2.zero;
         _bulletCollider.enabled = true;
     }
@@ -51,10 +53,14 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_targetEnemy != null) // Caso já tenhamos um Target apenas retornamos
+            return;
+
         if (IsInLayerMask(collision.gameObject.layer, _enemyMask))
         {
+            _targetEnemy = collision.GetComponent<Enemy>();
             CancelInvoke();
-            Attack(collision.GetComponent<Enemy>());
+            Attack(_targetEnemy);
             Release();
         }
     }

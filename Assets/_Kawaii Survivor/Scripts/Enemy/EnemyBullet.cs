@@ -12,7 +12,6 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] private float _bulletSpeed;
     private int _bulletDamage; // Receive damage from another script
 
-
     private void Awake()
     {
         _rig = GetComponent<Rigidbody2D>();
