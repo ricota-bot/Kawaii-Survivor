@@ -13,14 +13,36 @@ public class PlayerBullet : MonoBehaviour
     [SerializeField] private float _bulletSpeed;
     private int _bulletDamage; // Receive damage from another script
 
+    private RangeWeapon _rangeWeapon;
+
+
     private void Awake()
     {
         _rig = GetComponent<Rigidbody2D>();
         _bulletCollider = GetComponent<Collider2D>();
     }
 
+    public void Configure(RangeWeapon rangeWeapon)
+    {
+        _rangeWeapon = rangeWeapon;
+    }
+
+    public void Reload()
+    {
+        _rig.linearVelocity = Vector2.zero;
+        _bulletCollider.enabled = true;
+    }
+
+    private void Release()
+    {
+        if (!gameObject.activeSelf)
+            return;
+        _rangeWeapon.ReleaseBullet(this);
+    }
+
     public void Shoot(int damage, Vector2 direction)
     {
+        Invoke("Release", 1);
         _bulletDamage = damage;
         transform.right = direction;
         _rig.linearVelocity = direction * _bulletSpeed;
@@ -31,8 +53,9 @@ public class PlayerBullet : MonoBehaviour
     {
         if (IsInLayerMask(collision.gameObject.layer, _enemyMask))
         {
+            CancelInvoke();
             Attack(collision.GetComponent<Enemy>());
-            Destroy(this.gameObject);
+            Release();
         }
     }
 

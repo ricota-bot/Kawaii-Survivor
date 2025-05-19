@@ -1,5 +1,6 @@
+using System;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.Pool;
 
 public class RangeWeapon : Weapon
 {
@@ -8,10 +9,45 @@ public class RangeWeapon : Weapon
     [SerializeField] private PlayerBullet _bulletPrefab;
     private Enemy _enemy;
 
+    [Header("Pooling")]
+    private ObjectPool<PlayerBullet> _playerBulletPool;
+    private void Start()
+    {
+        _playerBulletPool = new ObjectPool<PlayerBullet>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy);
+    }
     private void Update()
     {
         AutoAim();
     }
+    private PlayerBullet CreateFunc()
+    {
+        PlayerBullet playerBulletInstance = Instantiate(_bulletPrefab, _shootingPoint.position, Quaternion.identity);
+        playerBulletInstance.Configure(this);
+        return playerBulletInstance;
+    }
+
+    private void ActionOnGet(PlayerBullet playerBullet)
+    {
+        playerBullet.Reload();
+        playerBullet.transform.position = _shootingPoint.position;
+        playerBullet.gameObject.SetActive(true);
+    }
+
+    private void ActionOnRelease(PlayerBullet playerBullet)
+    {
+        playerBullet.gameObject.SetActive(false);
+    }
+
+    private void ActionOnDestroy(PlayerBullet playerBullet)
+    {
+        Destroy(playerBullet.gameObject);
+    }
+
+    public void ReleaseBullet(PlayerBullet playerBullet)
+    {
+        _playerBulletPool.Release(playerBullet);
+    }
+
 
     private void AutoAim()
     {
@@ -48,7 +84,7 @@ public class RangeWeapon : Weapon
         // Instantiate Bullet
         //Vector2 direction = ((Vector2)_enemy.transform.position - (Vector2)_shootingPoint.position).normalized;
         Vector2 direction = _shootingPoint.transform.right;
-        PlayerBullet bulletInstance = Instantiate(_bulletPrefab, _shootingPoint.position, Quaternion.identity);
+        PlayerBullet bulletInstance = _playerBulletPool.Get();
         bulletInstance.Shoot(_weaponDamage, direction);
     }
 }
