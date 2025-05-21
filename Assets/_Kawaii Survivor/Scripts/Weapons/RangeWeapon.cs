@@ -80,12 +80,10 @@ public class RangeWeapon : Weapon
     private void Shoot()
     {
         _animator.Play("Shoot");
-
-        // Instantiate Bullet
-        //Vector2 direction = ((Vector2)_enemy.transform.position - (Vector2)_shootingPoint.position).normalized;
-        Vector2 direction = _shootingPoint.transform.right;
+        int damage = GetDamage(out bool isCriticalHit);
+        //Vector2 direction = _shootingPoint.transform.right;
         PlayerBullet bulletInstance = _playerBulletPool.Get();
-        bulletInstance.Shoot(_weaponDamage, direction);
+        bulletInstance.Shoot(damage, transform.up, isCriticalHit);
     }
 }
 

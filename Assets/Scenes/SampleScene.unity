@@ -6109,7 +6109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 476056895}
-  - component: {fileID: 476056894}
+  - component: {fileID: 476056897}
   - component: {fileID: 476056896}
   m_Layer: 0
   m_Name: DeBoink
@@ -6118,29 +6118,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &476056894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 476056893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf5206e8120d2d84d87b69bf2c85fbc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitDetectionTransform: {fileID: 1479253865}
-  _weaponRange: 2
-  _hitDetectionRadius: 0.45
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _weaponDamage: 5
-  _attackDelay: 0.3
-  _animator: {fileID: 476056896}
-  _aimLerp: 6
-  displayGizmos: 0
 --- !u!4 &476056895
 Transform:
   m_ObjectHideFlags: 0
@@ -6179,6 +6156,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &476056897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476056893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b31e034a8d9b4a47a9bb5e9de5cf056, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponRange: 3
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _weaponDamage: 4
+  _attackDelay: 0.5
+  _animator: {fileID: 476056896}
+  _aimLerp: 12
+  displayGizmos: 1
+  hitDetectionTransform: {fileID: 1479253865}
+  _hitDetectionRadius: 0.45
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -8288,7 +8288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1596853524
 Transform:
   m_ObjectHideFlags: 0
@@ -8339,14 +8339,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc48c2f3091089d4986d86a25590eb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitDetectionTransform: {fileID: 0}
   _weaponRange: 8
-  _hitDetectionRadius: 0
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
-  _weaponDamage: 4
-  _attackDelay: 1
+  _weaponDamage: 2
+  _attackDelay: 0.5
   _animator: {fileID: 1596853525}
   _aimLerp: 12
   displayGizmos: 1
@@ -9155,6 +9153,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 416868255}
     m_Modifications:
+    - target: {fileID: 1873996011063554690, guid: 9d81c72ce6fddbb40b03c72a8b372d24, type: 3}
+      propertyPath: _damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873996011063554690, guid: 9d81c72ce6fddbb40b03c72a8b372d24, type: 3}
+      propertyPath: _attackFrequency
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3844329709190412285, guid: 9d81c72ce6fddbb40b03c72a8b372d24, type: 3}
       propertyPath: displayGizmos
       value: 0
@@ -9205,7 +9211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7447257971816277170, guid: 9d81c72ce6fddbb40b03c72a8b372d24, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7525676829515457455, guid: 9d81c72ce6fddbb40b03c72a8b372d24, type: 3}
       propertyPath: enableGizmos
@@ -9321,21 +9327,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1916109318780733963, guid: 034baf3e7e67fe1449bd4c6563d32673, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7441296338123007358, guid: 034baf3e7e67fe1449bd4c6563d32673, type: 3}
-      propertyPath: m_IsTrigger
+    - target: {fileID: 5897102000831880071, guid: 034baf3e7e67fe1449bd4c6563d32673, type: 3}
+      propertyPath: displayGizmos
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897102000831880071, guid: 034baf3e7e67fe1449bd4c6563d32673, type: 3}
+      propertyPath: playerDetectRadius
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7536033176947990102, guid: 034baf3e7e67fe1449bd4c6563d32673, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8328630456825930956, guid: 034baf3e7e67fe1449bd4c6563d32673, type: 3}
-      propertyPath: displayGizmos
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -387,7 +387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1830065924774033897}
-  - component: {fileID: 6574916176138417923}
+  - component: {fileID: 5897102000831880071}
   - component: {fileID: 3481476814642248677}
   - component: {fileID: 7441296338123007358}
   m_Layer: 6
@@ -416,7 +416,7 @@ Transform:
   - {fileID: 54367066564033550}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6574916176138417923
+--- !u!114 &5897102000831880071
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -425,14 +425,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7536033176947990102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ffb9043a2c2f746962d1af10864d9b, type: 3}
+  m_Script: {fileID: 11500000, guid: c09682ecdcc95564da562eea529bbeba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHealth: 20
   _enemyRenderer: {fileID: 6591550756463269915}
   _spawnIndicatorRenderer: {fileID: 5323267120855296953}
   _enemyCollider: {fileID: 7441296338123007358}
-  playerDetectRadius: 2
+  playerDetectRadius: 0.55
   _particleSystem: {fileID: 5453572096296380755}
   displayGizmos: 1
   _damage: 1

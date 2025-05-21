@@ -12,6 +12,7 @@ public class PlayerBullet : MonoBehaviour
     [SerializeField] private LayerMask _enemyMask;
     [SerializeField] private float _bulletSpeed;
     private int _bulletDamage; // Receive damage from another script
+    private bool _isCriticalHit;
 
     private RangeWeapon _rangeWeapon;
 
@@ -42,9 +43,10 @@ public class PlayerBullet : MonoBehaviour
         _rangeWeapon.ReleaseBullet(this);
     }
 
-    public void Shoot(int damage, Vector2 direction)
+    public void Shoot(int damage, Vector2 direction, bool isCriticalHit)
     {
         Invoke("Release", 1);
+        _isCriticalHit = isCriticalHit;
         _bulletDamage = damage;
         transform.right = direction;
         _rig.linearVelocity = direction * _bulletSpeed;
@@ -67,7 +69,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void Attack(Enemy enemy)
     {
-        enemy.TakeDamage(_bulletDamage);
+        enemy.TakeDamage(_bulletDamage, _isCriticalHit);
     }
 
     private bool IsInLayerMask(int layer, LayerMask layerMask)

@@ -105,7 +105,8 @@ public class MeleeWeapon : Weapon
 
             if (!_damagedEnemiesList.Contains(enemy)) // Não esta dentro da Lista
             {
-                enemy.TakeDamage(_weaponDamage);
+                int damage = GetDamage(out bool isCriticalHit);
+                enemy.TakeDamage(damage, isCriticalHit);
                 _damagedEnemiesList.Add(enemy); // Adicionamos esse Inimigo a Lista
                 // Fazemos isso para não atacar o Player duas Vezes
             }

@@ -24,7 +24,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected ParticleSystem _particleSystem;
 
     [Header("Actions")]
-    public static Action<Vector2, int> OnDamageTaken;
+    public static Action<Vector2, int, bool> OnDamageTaken;
+    public static Action<Vector2> OnEnemyPassWay;
 
     [Header("Debug")]
     [SerializeField] protected bool displayGizmos;
@@ -81,9 +82,10 @@ public abstract class Enemy : MonoBehaviour
         _particleSystem.transform.parent = null;
         _particleSystem.Play();
         Destroy(gameObject);
+        OnEnemyPassWay?.Invoke(transform.position);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool isCriticalHit)
     {
         int realDamage = Mathf.Min(damage, _health);
 
@@ -92,7 +94,7 @@ public abstract class Enemy : MonoBehaviour
         if (_health <= 0)
             PassWay();
 
-        OnDamageTaken?.Invoke(transform.position, realDamage);
+        OnDamageTaken?.Invoke(transform.position, realDamage, isCriticalHit);
     }
 
 

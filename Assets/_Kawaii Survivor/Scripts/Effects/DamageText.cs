@@ -9,9 +9,11 @@ public class DamageText : MonoBehaviour
 
 
     [NaughtyAttributes.Button]
-    public void PlayAnimation(int damage)
+    public void PlayAnimation(int damage, bool isCriticalHit)
     {
-        _animator.Play("DamageTextAnim");
+        _damageText.color = isCriticalHit ? Color.yellow : Color.white;
         _damageText.text = damage.ToString();
+
+        _animator.Play("DamageTextAnim");
     }
 }

@@ -452,7 +452,7 @@ MonoBehaviour:
   _shootingPoint: {fileID: 597423602724454192}
   _bulletPrefab: {fileID: -5048362203090172118, guid: 33634926d1ef84742a0e4632bca426a5, type: 3}
   _damage: 1
-  _attackFrequency: 1
+  _attackFrequency: 1.5
 --- !u!114 &7525676829515457455
 MonoBehaviour:
   m_ObjectHideFlags: 0

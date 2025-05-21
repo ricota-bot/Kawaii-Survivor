@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-   
+
     [Header("Settings")]
     [SerializeField] protected float _weaponRange;
     [SerializeField] protected LayerMask _layerMask;
@@ -49,6 +49,20 @@ public abstract class Weapon : MonoBehaviour
         }
 
         return closestEnemy;
+    }
+
+    protected int GetDamage(out bool isCriticalHit)
+    {
+        isCriticalHit = false;
+
+        int chanceToCritical = 50;
+        if (Random.Range(0, 101) <= chanceToCritical)
+        {
+            isCriticalHit = true;
+            return _weaponDamage * 2;
+        }
+
+        return _weaponDamage;
     }
 
     private void OnDrawGizmos()
