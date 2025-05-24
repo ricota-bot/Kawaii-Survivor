@@ -54,11 +54,9 @@ public class RangeEnemyAttack : MonoBehaviour
         Destroy(bullet.gameObject);
     }
 
-    public void ReleaseBullet(EnemyBullet bullet)
-    {
+    public void ReleaseBullet(EnemyBullet bullet) =>
         _bulletPool.Release(bullet);
-        Debug.Log("Release!");
-    }
+
 
     #endregion
 
