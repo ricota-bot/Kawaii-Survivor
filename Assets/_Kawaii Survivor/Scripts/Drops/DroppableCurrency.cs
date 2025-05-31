@@ -14,8 +14,8 @@ public abstract class DroppableCurrency : MonoBehaviour, ICollectable
     public void Collect(Player player)
     {
         if (_collected) return;
-        _collected = true;
 
+        _collected = true;
         StartCoroutine(MoveTowardsPlayer(player));
     }
 
