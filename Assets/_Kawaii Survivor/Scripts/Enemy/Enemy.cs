@@ -82,6 +82,7 @@ public abstract class Enemy : MonoBehaviour
         _particleSystem.transform.parent = null;
         _particleSystem.Play();
         Destroy(gameObject);
+
         OnEnemyPassWay?.Invoke(transform.position);
     }
 

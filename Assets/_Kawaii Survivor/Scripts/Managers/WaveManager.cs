@@ -2,7 +2,6 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using UnityEditor.PackageManager.UI;
 
 [RequireComponent(typeof(WaveManagerUI))]
 public class WaveManager : MonoBehaviour, IGameStateListener
