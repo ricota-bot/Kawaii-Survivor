@@ -1,10 +1,18 @@
+using NaughtyAttributes;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour, IPlayerStatsDepedency
 {
+    [Header("Data")]
+    [Expandable]
+    [SerializeField] private WeaponDataSO _weaponData;
+    public WeaponDataSO WeaponData { get => _weaponData; private set => _weaponData = value; }
+
+    [Header("Level")]
+    [field: SerializeField] public int Level { get; private set; }
 
     [Header("Settings")]
     [SerializeField] protected float _weaponRange;
@@ -13,7 +21,12 @@ public abstract class Weapon : MonoBehaviour
     [Header("Attack")]
     [SerializeField] protected int _weaponDamage;
     [SerializeField] protected float _attackDelay;
-    protected float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay made somethinng..
+    protected float _attackTimer; // Use this to increment++ your Timer by Time.deltaTime .... if attackTicker >= attackDelay made something..
+
+    [Header("Critical")]
+    [SerializeField] protected int _criticalChance;
+    [SerializeField] protected float _criticalPercent;
+
 
     [Header("Animations")]
     [SerializeField] protected Animator _animator;
@@ -21,6 +34,8 @@ public abstract class Weapon : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] protected bool displayGizmos;
+
+
 
 
     protected Enemy GetClosestEnemy()
@@ -50,20 +65,39 @@ public abstract class Weapon : MonoBehaviour
 
         return closestEnemy;
     }
-
     protected int GetDamage(out bool isCriticalHit)
     {
         isCriticalHit = false;
 
-        int chanceToCritical = 50;
-        if (Random.Range(0, 101) <= chanceToCritical)
+        if (Random.Range(0, 101) <= _criticalChance)
         {
             isCriticalHit = true;
-            return _weaponDamage * 2;
+            return Mathf.RoundToInt(_weaponDamage * _criticalPercent);
         }
 
         return _weaponDamage;
     }
+    protected void ConfigureStats()
+    {
+        float multiplier = 1 + (float)Level / 3;
+        _weaponDamage = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.Attack) * multiplier);
+
+        _attackDelay = 1f / (WeaponData.GetStatValue(Stat.AttackSpeed) * multiplier);
+
+        Debug.Log($"Attack Delay: {_attackDelay}");
+
+        _criticalChance = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.CriticalChance) * multiplier);
+        _criticalPercent = WeaponData.GetStatValue(Stat.CriticalPercent) * multiplier;
+
+        if (WeaponData.Prefab.GetType() == typeof(RangeWeapon))
+        {
+            _weaponRange = WeaponData.GetStatValue(Stat.Range) * multiplier;
+        }
+    }
+
+    public abstract void UpdateStats(PlayerStatsManager playerStatsManager);
+
+
 
     private void OnDrawGizmos()
     {

@@ -56,7 +56,7 @@ public class DamageTextManager : MonoBehaviour
         Vector3 spawnPosition = enemyPosition + Vector2.up * 1;
         damageTextInstance.transform.position = spawnPosition;
 
-        damageTextInstance.PlayAnimation(damage.ToString(), isCriticalHit);
+        damageTextInstance.PlayAnimation(damage.ToString("F2"), isCriticalHit);
 
         LeanTween.delayedCall(1, () => _damageTextPool.Release(damageTextInstance));
     }
