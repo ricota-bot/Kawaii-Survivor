@@ -5,13 +5,12 @@ using NaughtyAttributes;
 [CreateAssetMenu(fileName = "Weapon Data", menuName = "Scriptable Objects/New Weapon Data", order = 0)]
 public class WeaponDataSO : ScriptableObject
 {
-    [field: SerializeField] public string CharacterName { get; private set; }
+    [field: SerializeField] public string WeaponName { get; private set; }
     [ShowAssetPreview]
     [SerializeField] private Sprite _sprite;
     public Sprite Sprite { get => _sprite; private set => _sprite = value; }
-    [field: SerializeField] public int PurchasePrice { get; private set; }
-
     [field: SerializeField] public Weapon Prefab { get; private set; }
+    [field: SerializeField] public int PurchasePrice { get; private set; }
 
     [HorizontalLine(color: EColor.Yellow)]
     [SerializeField] private float attack;  // Percent

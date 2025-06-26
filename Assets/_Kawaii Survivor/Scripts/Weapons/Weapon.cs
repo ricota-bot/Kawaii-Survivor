@@ -12,7 +12,7 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDepedency
     public WeaponDataSO WeaponData { get => _weaponData; private set => _weaponData = value; }
 
     [Header("Level")]
-    [field: SerializeField] public int Level { get; private set; }
+    public int Level { get; private set; }
 
     [Header("Settings")]
     [SerializeField] protected float _weaponRange;
@@ -27,16 +27,12 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDepedency
     [SerializeField] protected int _criticalChance;
     [SerializeField] protected float _criticalPercent;
 
-
     [Header("Animations")]
     [SerializeField] protected Animator _animator;
     [SerializeField] protected float _aimLerp;
 
     [Header("Debug")]
     [SerializeField] protected bool displayGizmos;
-
-
-
 
     protected Enemy GetClosestEnemy()
     {
@@ -84,8 +80,6 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDepedency
 
         _attackDelay = 1f / (WeaponData.GetStatValue(Stat.AttackSpeed) * multiplier);
 
-        Debug.Log($"Attack Delay: {_attackDelay}");
-
         _criticalChance = Mathf.RoundToInt(WeaponData.GetStatValue(Stat.CriticalChance) * multiplier);
         _criticalPercent = WeaponData.GetStatValue(Stat.CriticalPercent) * multiplier;
 
@@ -97,6 +91,12 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDepedency
 
     public abstract void UpdateStats(PlayerStatsManager playerStatsManager);
 
+
+    public void UpgradeTo(int targetLevel)
+    {
+        Level = targetLevel;
+        ConfigureStats();
+    }
 
 
     private void OnDrawGizmos()

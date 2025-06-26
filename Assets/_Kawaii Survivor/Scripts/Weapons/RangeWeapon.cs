@@ -88,7 +88,6 @@ public class RangeWeapon : Weapon
 
     public override void UpdateStats(PlayerStatsManager playerStatsManager)
     {
-        Debug.Log("Previous Damage " + _weaponDamage + "");
         ConfigureStats();
 
         _weaponDamage = Mathf.RoundToInt(_weaponDamage * (1 + playerStatsManager.GetStatValue(Stat.Attack) / 100));
@@ -97,8 +96,6 @@ public class RangeWeapon : Weapon
         _criticalPercent += playerStatsManager.GetStatValue(Stat.CriticalPercent);
 
         _weaponRange += playerStatsManager.GetStatValue(Stat.Range) / 10; // Divide por 10 para não aumentar muito com o decorrer do tempo
-
-        Debug.Log("New Damage " + _weaponDamage + "");
     }
 }
 

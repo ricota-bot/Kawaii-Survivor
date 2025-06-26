@@ -110,12 +110,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponData: {fileID: 11400000, guid: 23979da8d78b4b445b844ca80e648743, type: 2}
-  <Level>k__BackingField: 1
+  <Level>k__BackingField: 0
   _weaponRange: 12
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
-  _weaponDamage: 0
+  _weaponDamage: 10
   _attackDelay: 0.3
   _criticalChance: 0
   _criticalPercent: 0

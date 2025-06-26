@@ -171,7 +171,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
-  _weaponDamage: 0
+  _weaponDamage: 1
   _attackDelay: 0.5
   _criticalChance: 0
   _criticalPercent: 0
