@@ -52,7 +52,7 @@ public class WeaponSelectionManager : MonoBehaviour, IGameStateListener
         WeaponDataSO weaponData = starterWeapons[Random.Range(0, starterWeapons.Length)];
 
         int level = Random.Range(0, 4);
-        weaponContainerInstance.Configure(weaponData.Sprite, weaponData.WeaponName, level);
+        weaponContainerInstance.Configure(weaponData.Sprite, weaponData.WeaponName, level, weaponData);
 
         weaponContainerInstance.Button.onClick.RemoveAllListeners();
         weaponContainerInstance.Button.onClick.AddListener(() => WeaponSelectedCallBack(weaponContainerInstance, weaponData, level));

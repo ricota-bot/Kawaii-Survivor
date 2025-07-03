@@ -98,4 +98,3 @@ public class RangeWeapon : Weapon
         _weaponRange += playerStatsManager.GetStatValue(Stat.Range) / 10; // Divide por 10 para não aumentar muito com o decorrer do tempo
     }
 }
-

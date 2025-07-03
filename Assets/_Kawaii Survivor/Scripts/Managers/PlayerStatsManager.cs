@@ -50,7 +50,6 @@ public class PlayerStatsManager : MonoBehaviour
             dependency.UpdateStats(this);
     }
 
-
     public float GetStatValue(Stat stat)
     {
         float value = playerStats[stat] + addends[stat];
