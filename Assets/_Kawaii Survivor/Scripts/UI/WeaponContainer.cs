@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,20 +18,23 @@ public class WeaponContainer : MonoBehaviour
 
     [Header("Color")]
     [SerializeField] private Image[] _backGroundContainers;
+    [SerializeField] private Image _outlineContainer;
 
-    public void Configure(Sprite icon, string name, int level, WeaponDataSO weaponData)
+    public void Configure(WeaponDataSO weaponData, int level)
     {
-        _icon.sprite = icon;
-        _nameText.text = name + $" ({level + 1})";
+        _icon.sprite = weaponData.Sprite;
+        _nameText.text = weaponData.WeaponName + $" ({level + 1})";
 
         Color imageColor = ColorHolder.GetColor(level);
 
         _nameText.color = imageColor;
+        _outlineContainer.color = ColorHolder.GetOutlineColor(level);
 
         foreach (var image in _backGroundContainers)
         {
             image.color = imageColor;
         }
+
 
         Dictionary<Stat, float> calculatedStats = WeaponStatsCalculator.GetStats(weaponData, level);
         ConfigureStatContainers(calculatedStats);
@@ -40,7 +42,7 @@ public class WeaponContainer : MonoBehaviour
 
     public void ConfigureStatContainers(Dictionary<Stat, float> calculatedStats)
     {
-        StatContainerManager.GenerateStatContiners(calculatedStats, _statsContainerParent);
+        StatContainerManager.GenerateStatContainers(calculatedStats, _statsContainerParent);
     }
 
     public void Select()

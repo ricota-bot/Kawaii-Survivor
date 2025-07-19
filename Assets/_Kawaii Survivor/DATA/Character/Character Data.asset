@@ -20,7 +20,7 @@ MonoBehaviour:
   criticalChance: -1
   criticalPercent: 0
   moveSpeed: 5
-  maxHealth: 100
+  maxHealth: 15
   range: 0
   healthRecoverySpeed: 10
   armor: 5

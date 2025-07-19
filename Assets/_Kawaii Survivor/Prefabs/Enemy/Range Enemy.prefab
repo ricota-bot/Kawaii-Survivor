@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425030cdeab0dc34eb38004f7c985d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHealth: 7
   _enemyRenderer: {fileID: 1475391231798300624}
   _spawnIndicatorRenderer: {fileID: 8143805363594301344}
   _enemyCollider: {fileID: 2406656250277978510}

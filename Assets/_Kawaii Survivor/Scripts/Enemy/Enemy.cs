@@ -79,11 +79,15 @@ public abstract class Enemy : MonoBehaviour
 
     public void PassWay()
     {
+        OnEnemyPassWay?.Invoke(transform.position);
+        PassWayAfterWave();
+    }
+
+    public void PassWayAfterWave()
+    {
         _particleSystem.transform.parent = null;
         _particleSystem.Play();
         Destroy(gameObject);
-
-        OnEnemyPassWay?.Invoke(transform.position);
     }
 
     public void TakeDamage(int damage, bool isCriticalHit)

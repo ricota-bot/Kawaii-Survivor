@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour, IPlayerStatsDepedency
     [SerializeField] private float _baseMoveSpeed;
     private float _moveSpeed;
 
-
     private void FixedUpdate()
     {
         PlayerMovement();
