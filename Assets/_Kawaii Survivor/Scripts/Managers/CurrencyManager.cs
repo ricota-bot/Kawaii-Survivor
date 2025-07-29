@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
@@ -7,6 +8,9 @@ public class CurrencyManager : MonoBehaviour
 
     [Header("Elements")]
     [field: SerializeField] public int Currency { get; private set; }
+
+    [Header("Actions")]
+    public static Action OnCurrencyChanged;
 
     private void Awake()
     {
@@ -21,10 +25,14 @@ public class CurrencyManager : MonoBehaviour
         UpdateText();
     }
 
-    public void AddCurrency(int currencyAmount)
+    [NaughtyAttributes.Button("Add 500 Currency")]
+    public void Add500Currency() => AddCurrency(500);
+
+    public void AddCurrency(int currency)
     {
-        Currency += currencyAmount;
+        Currency += currency;
         UpdateText();
+        OnCurrencyChanged?.Invoke();
     }
 
 
@@ -36,5 +44,16 @@ public class CurrencyManager : MonoBehaviour
         {
             text.UpdateText(Currency);
         }
+    }
+
+    public void UseCurrency(int currency)
+    {
+        if (CanAfford(currency))
+            AddCurrency(-currency);
+    }
+
+    public bool CanAfford(int currency)
+    {
+        return Currency >= currency;
     }
 }

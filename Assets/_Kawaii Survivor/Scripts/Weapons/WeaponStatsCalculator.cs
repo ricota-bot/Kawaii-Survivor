@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public static class WeaponStatsCalculator
@@ -18,5 +19,11 @@ public static class WeaponStatsCalculator
         }
 
         return calculatedStats;
+    }
+
+    public static int GetPurchasePrice(WeaponDataSO weaponData, int level)
+    {
+        float levelMultipler = 1 + ((float)level / 3);
+        return (int)(weaponData.PurchasePrice * levelMultipler);
     }
 }
