@@ -60,6 +60,7 @@ public class StatContainerManager : MonoBehaviour
 
     public static void GenerateStatContainers(Dictionary<Stat, float> statDictionary, Transform parent)
     {
+        parent.Clear(); // Clear the parent before generating new containers
         Instance.GenerateContainers(statDictionary, parent);
     }
 

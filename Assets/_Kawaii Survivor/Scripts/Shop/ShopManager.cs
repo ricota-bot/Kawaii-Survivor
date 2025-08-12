@@ -100,7 +100,7 @@ public class ShopManager : MonoBehaviour, IGameStateListener
 
     private void OnPurchasedCallBack(ShopItemContainer container, int weaponLevel)
     {
-        if (container.WeaponData != null)
+        if (container.WeaponData != null) //
         {
             TryPurchaseWeapon(container, weaponLevel);
         }
