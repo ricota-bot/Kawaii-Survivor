@@ -15,9 +15,10 @@ MonoBehaviour:
   <WeaponName>k__BackingField: De Boink
   _sprite: {fileID: 5485319108022510092, guid: 15c981701acaf3f4b840cf2f1f7d3446, type: 3}
   <Prefab>k__BackingField: {fileID: 4896105006788681325, guid: 71020b1644c85524d84c46249e37697c, type: 3}
-  <PurchasePrice>k__BackingField: 45
+  <PurchasePrice>k__BackingField: 90
+  <RecyclePrice>k__BackingField: 70
   attack: 15
   attackSpeed: 1
-  criticalChance: 15
+  criticalChance: 7
   criticalPercent: 2
   range: 3.5

@@ -11,6 +11,7 @@ public class WeaponDataSO : ScriptableObject
     public Sprite Sprite { get => _sprite; private set => _sprite = value; }
     [field: SerializeField] public Weapon Prefab { get; private set; }
     [field: SerializeField] public int PurchasePrice { get; private set; }
+    [field: SerializeField] public int RecyclePrice { get; private set; }
 
     [HorizontalLine(color: EColor.Yellow)]
     [SerializeField] private float attack;  // Percent

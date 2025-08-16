@@ -27,4 +27,17 @@ public class PlayerObjects : MonoBehaviour
         _playerStatsManager.AddObjectData(objectDataToTake.BaseStats);
 
     }
+
+    public void RecycleObject(ObjectDataSO objectDataToRecycle)
+    {
+        // Remove Object from ObjectDataList
+        ObjectsData.Remove(objectDataToRecycle);
+
+        // Get the money back from CurrencyManager
+        CurrencyManager.Instance.AddCurrency(objectDataToRecycle.RecyclePrice);
+
+        // Remove Objects Stats from playerStats Manager
+        _playerStatsManager.RemoveObjectData(objectDataToRecycle.BaseStats);
+
+    }
 }

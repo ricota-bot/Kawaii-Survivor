@@ -22,6 +22,8 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
     [SerializeField] private Transform _chestContainerParent;
     private int _chestCollected;
 
+    [Header("Chest Text")]
+    [SerializeField] private TextMeshProUGUI _chestAmountText;
 
     private void Awake()
     {
@@ -69,6 +71,7 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
     private void ShowChestContainer()
     {
         _upgradeContainersParent.SetActive(false);
+        _chestAmountText.text = _chestCollected.ToString();
         _chestCollected--;
         ObjectDataSO[] objectDatas = ResourcesManager.Objects;
         ObjectDataSO randomObjectData = objectDatas[Random.Range(0, objectDatas.Length)];

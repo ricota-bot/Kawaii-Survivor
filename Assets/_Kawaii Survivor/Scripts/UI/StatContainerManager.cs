@@ -34,7 +34,7 @@ public class StatContainerManager : MonoBehaviour
             statContainerInstance.Configure(icon, statName, statValue);
         }
 
-        LeanTween.delayedCall(Time.deltaTime * 2, () => ResizeTexts(statContainerList)); // Wait "two" seconds befora call the method
+        LeanTween.delayedCall(Time.deltaTime * 2, () => ResizeTexts(statContainerList)); // Wait "two" seconds befor call the method
     }
 
     private void ResizeTexts(List<StatContainer> statContainerList)

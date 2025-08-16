@@ -15,9 +15,10 @@ MonoBehaviour:
   <WeaponName>k__BackingField: Cotton Candy Gun
   _sprite: {fileID: 21300000, guid: 84f07b27a38eda042b5858622cbeaf52, type: 3}
   <Prefab>k__BackingField: {fileID: 7593824723601764176, guid: f3701c922e4f7f142a9d00b3230a4449, type: 3}
-  <PurchasePrice>k__BackingField: 100
-  attack: 5
-  attackSpeed: 1.5
-  criticalChance: 10
+  <PurchasePrice>k__BackingField: 120
+  <RecyclePrice>k__BackingField: 100
+  attack: 10
+  attackSpeed: 2
+  criticalChance: 5
   criticalPercent: 1.5
-  range: 6
+  range: 4

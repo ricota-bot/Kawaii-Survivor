@@ -38,6 +38,28 @@ public class PlayerStatsManager : MonoBehaviour
         UpdatePlayerStats();
     }
 
+    public void AddObjectData(Dictionary<Stat, float> objectStats)
+    {
+        foreach (KeyValuePair<Stat, float> kvp in objectStats)
+        {
+            objectAddends[kvp.Key] += kvp.Value;
+            Debug.Log($"Added Object Data: {kvp.Value} to {kvp.Key}");
+        }
+
+        UpdatePlayerStats();
+    }
+
+    public void RemoveObjectData(Dictionary<Stat, float> objectStats)
+    {
+        foreach (KeyValuePair<Stat, float> kvp in objectStats)
+        {
+            objectAddends[kvp.Key] -= kvp.Value;
+            Debug.Log($"Removed Object Data: {kvp.Value} to {kvp.Key}");
+        }
+
+        UpdatePlayerStats();
+    }
+
     private void UpdatePlayerStats()
     {
         IEnumerable<IPlayerStatsDepedency> playerStatsDepedency =
@@ -46,16 +68,6 @@ public class PlayerStatsManager : MonoBehaviour
 
         foreach (IPlayerStatsDepedency dependency in playerStatsDepedency)
             dependency.UpdateStats(this);
-    }
-
-    public void AddObjectData(Dictionary<Stat, float> objectStats)
-    {
-        foreach (KeyValuePair<Stat, float> kvp in objectStats)
-        {
-            objectAddends[kvp.Key] += kvp.Value;
-            Debug.Log($"Added {kvp.Value} to {kvp.Key}");
-        }
-        UpdatePlayerStats();
     }
 
     public float GetStatValue(Stat stat) => playerStats[stat] + addends[stat] + objectAddends[stat];

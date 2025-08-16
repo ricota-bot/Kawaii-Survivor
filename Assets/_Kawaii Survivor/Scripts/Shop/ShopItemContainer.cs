@@ -31,6 +31,7 @@ public class ShopItemContainer : MonoBehaviour
     public ObjectDataSO ObjectData { get; private set; }
 
     private int weaponLevel;
+    private int itemPrice;
 
     [Header("Actions")]
     public static Action<ShopItemContainer, int> OnPurchased;
@@ -46,10 +47,8 @@ public class ShopItemContainer : MonoBehaviour
     }
 
     // ACTIONS
-
     private void OnCurrencyChangedCallBack()
     {
-        int itemPrice;
 
         if (WeaponData != null)
             itemPrice = WeaponStatsCalculator.GetPurchasePrice(WeaponData, weaponLevel);
@@ -129,13 +128,18 @@ public class ShopItemContainer : MonoBehaviour
     {
         _lockButtonImage.sprite = IsLocked ? _lockedSprite : _unlockedSprite;
         purchaseButton.interactable = !IsLocked;
-    }
 
+        if (!CurrencyManager.Instance.CanAfford(itemPrice))
+        {
+
+            purchaseButton.interactable = false;
+        }
+
+    }
 
     private void Purchase()
     {
         OnPurchased?.Invoke(this, weaponLevel);
     }
-
 
 }
