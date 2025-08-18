@@ -20,10 +20,10 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
     [Header("Chest Related Stuffs")]
     [SerializeField] private ChestObjectContainer _chestObjectContainerPrefab;
     [SerializeField] private Transform _chestContainerParent;
+
+    [SerializeField] private GameObject _chestCountContainer;
     private int _chestCollected;
 
-    [Header("Chest Text")]
-    [SerializeField] private TextMeshProUGUI _chestAmountText;
 
     private void Awake()
     {
@@ -45,6 +45,15 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
     {
         _chestCollected++;
         Debug.Log($"We now have {_chestCollected} chests");
+
+        UpdateChestContainer(_chestCollected);
+    }
+
+    private void UpdateChestContainer(int chestCollected)
+    {
+        ChestCountText[] chestCountText = FindObjectsByType<ChestCountText>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (ChestCountText chestText in chestCountText)
+            chestText.UpdateText(_chestCollected);
     }
 
     public bool HasCollectedChest() => _chestCollected > 0;
@@ -71,8 +80,11 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
     private void ShowChestContainer()
     {
         _upgradeContainersParent.SetActive(false);
-        _chestAmountText.text = _chestCollected.ToString();
+        _chestCountContainer.SetActive(true);
+
+        UpdateChestContainer(_chestCollected);
         _chestCollected--;
+
         ObjectDataSO[] objectDatas = ResourcesManager.Objects;
         ObjectDataSO randomObjectData = objectDatas[Random.Range(0, objectDatas.Length)];
 
@@ -99,6 +111,7 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
     private void ConfigureUpgradeContainers()
     {
         _upgradeContainersParent.SetActive(true);
+        _chestCountContainer.SetActive(false);
 
         for (int i = 0; i < _upgradeContainers.Length; i++)
         {

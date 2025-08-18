@@ -1,8 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(TextMeshProUGUI))]
-public class CurrencyText : MonoBehaviour
+public class PremiumCurrencyText : MonoBehaviour
 {
     [Header("Elements")]
     TextMeshProUGUI _currencyText;
@@ -14,7 +13,7 @@ public class CurrencyText : MonoBehaviour
 
         int current = int.Parse(_currencyText.text);
 
-        LeanTween.value(gameObject, current, currencyValue, 0.5f)
+        LeanTween.value(gameObject, current, currencyValue, 0.03f)
             .setEase(LeanTweenType.easeOutQuad)
             .setOnUpdate((float val) =>
             {

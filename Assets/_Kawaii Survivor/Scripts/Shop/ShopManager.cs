@@ -158,9 +158,7 @@ public class ShopManager : MonoBehaviour, IGameStateListener
             case GameState.SHOP:
                 Configure();
                 UpdateRerollVisuals();
-
                 break;
-
         }
     }
 }

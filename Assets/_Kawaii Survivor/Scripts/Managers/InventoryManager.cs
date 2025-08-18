@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
 
     [Header("Elements")]
     [SerializeField] private Transform inventoryItemContainerParent;
+    [SerializeField] private Transform pauseInventoryItemContainerParent;
     [SerializeField] private InventoryItemContainer inventoryItemContainer;
     [SerializeField] private ShopManagerUI shopManagerUI;
     [SerializeField] private InventoryItemInfo inventoryItemInfo;
@@ -17,6 +18,8 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     {
         ShopManager.onItemPurchased += OnPurchasedCallBack;
         WeaponMerge.onMerge += OnMergeCallBack;
+        GameManager.onGamePaused += Configure;
+
     }
 
     private void OnDestroy()
@@ -24,7 +27,7 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
         ShopManager.onItemPurchased -= OnPurchasedCallBack;
         WeaponMerge.onMerge -= OnMergeCallBack;
 
-
+        GameManager.onGamePaused -= Configure;
     }
 
     private void OnMergeCallBack(Weapon weapon)
@@ -37,6 +40,7 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
     private void Configure()
     {
         inventoryItemContainerParent.Clear();
+        pauseInventoryItemContainerParent.Clear();
 
         // CONFIGURE WEAPONS
         Weapon[] weapons = playerWeapons.GetWeapons();
@@ -45,8 +49,13 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
         {
             if (weapons[i] == null) continue;
 
+            // SHOP PANEL
             InventoryItemContainer containerInstance = Instantiate(inventoryItemContainer, inventoryItemContainerParent);
             containerInstance.Configure(weapons[i], i, () => ShowItensInformation(containerInstance));
+
+            // PAUSE PANEL
+            InventoryItemContainer pauseContainerInstance = Instantiate(inventoryItemContainer, pauseInventoryItemContainerParent);
+            pauseContainerInstance.Configure(weapons[i], i, null);
         }
         // -----------------------------------------------------------------------------------------------------
 
@@ -56,8 +65,14 @@ public class InventoryManager : MonoBehaviour, IGameStateListener
 
         for (int i = 0; i < objectsData.Length; i++)
         {
+
+            // SHOP PANEL
             InventoryItemContainer containerInstance = Instantiate(inventoryItemContainer, inventoryItemContainerParent);
             containerInstance.Configure(objectsData[i], () => ShowItensInformation(containerInstance));
+
+            // PAUSE PANEL
+            InventoryItemContainer pauseContainerInstance = Instantiate(inventoryItemContainer, pauseInventoryItemContainerParent);
+            pauseContainerInstance.Configure(objectsData[i], null);
         }
         // -----------------------------------------------------------------------------------------------------
     }

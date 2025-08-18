@@ -6,6 +6,7 @@ public enum GameState
     MENU,
     WEAPONSELECTION,
     GAME,
+    PAUSE,
     GAMEOVER,
     STAGECOMPLETE,
     WAVETRANSITION,

@@ -6,12 +6,6 @@ public class PlayerDetection : MonoBehaviour
     [Header("Colliders")]
     [SerializeField] private Collider2D _playerCollider;
 
-
-    private void FixedUpdate()
-    {
-
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out ICollectable collectable))

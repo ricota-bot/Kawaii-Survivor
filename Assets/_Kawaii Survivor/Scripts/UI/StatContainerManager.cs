@@ -8,7 +8,6 @@ public class StatContainerManager : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private StatContainer _statContainerPrefab;
 
-
     private void Awake()
     {
         if (Instance == null)

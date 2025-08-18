@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,11 @@ public class GameManager : MonoBehaviour
 {
     [Header("Elements")]
     public static GameManager instance;
+
+    [Header("Actions")]
+    public static Action onGamePaused;
+    public static Action onGameResumed;
+
     private void Awake()
     {
         if (instance == null)
@@ -22,18 +28,29 @@ public class GameManager : MonoBehaviour
         SetGameState(GameState.MENU);
     }
 
+    public void StartMenu() => SetGameState(GameState.MENU);
     public void StartGame() => SetGameState(GameState.GAME);
-    public void StartWeaponSelection() => SetGameState(GameState.WEAPONSELECTION);
     public void StartShop() => SetGameState(GameState.SHOP);
+    public void StartWeaponSelection() => SetGameState(GameState.WEAPONSELECTION);
     public void ManageGameover() => SceneManager.LoadScene(0);
 
 
-    public void SetGameState(GameState state)
+    public void PauseButtonCallBack()
     {
-        IEnumerable<IGameStateListener> gameStateListener = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IGameStateListener>();
+        Time.timeScale = 0;
+        onGamePaused?.Invoke();
+    }
 
-        foreach (IGameStateListener listener in gameStateListener)
-            listener.OnGameStateChangedCallBack(state);
+    public void ResumeButtonCallBack()
+    {
+        Time.timeScale = 1;
+        onGameResumed?.Invoke();
+    }
+
+    public void RestartFromPause()
+    {
+        Time.timeScale = 1;
+        ManageGameover();
     }
 
     public void WaveCompleteCallBack()
@@ -44,6 +61,15 @@ public class GameManager : MonoBehaviour
         }
         else
             SetGameState(GameState.SHOP);
+    }
+
+    // SET GAMES STATES
+    public void SetGameState(GameState state)
+    {
+        IEnumerable<IGameStateListener> gameStateListener = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IGameStateListener>();
+
+        foreach (IGameStateListener listener in gameStateListener)
+            listener.OnGameStateChangedCallBack(state);
     }
 }
 
