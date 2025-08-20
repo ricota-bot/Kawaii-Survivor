@@ -48,4 +48,20 @@ public class CharacterDataSO : ScriptableObject
         private set { }
     }
 
+    public Dictionary<Stat, float> NonNeutralStats
+    {
+        get
+        {
+            Dictionary<Stat, float> nonNeutralDictionary = new Dictionary<Stat, float>();
+
+            foreach (KeyValuePair<Stat, float> pair in BaseStats)
+            {
+                if (pair.Value != 0)
+                    nonNeutralDictionary.Add(pair.Key, pair.Value);
+            }
+
+            return nonNeutralDictionary;
+        }
+        private set { }
+    }
 }

@@ -16,7 +16,8 @@ public class UIManager : MonoBehaviour, IGameStateListener
     [SerializeField] private GameObject _shopPanel;
 
     [SerializeField] private GameObject _restartConfirmationPanel;
-    [SerializeField] private GameObject _panel;
+    [SerializeField] private GameObject _characterSelectionPanel;
+    [SerializeField] private GameObject _settingsPanel;
 
     private List<GameObject> _panels = new List<GameObject>();
 
@@ -39,6 +40,10 @@ public class UIManager : MonoBehaviour, IGameStateListener
 
         _pausePanel.SetActive(false);
         _restartConfirmationPanel.SetActive(false);
+
+
+        HideCharacterSelectionPanel();
+        HideSettingsPanel();
     }
 
     private void OnDestroy()
@@ -100,11 +105,10 @@ public class UIManager : MonoBehaviour, IGameStateListener
         panel.localScale = Vector3.zero;
 
         LeanTween.cancel(panel);
-        LeanTween.scale(panel, Vector3.one, 0.4f)
+        LeanTween.scale(panel, Vector3.one, 0.25f)
                  .setEaseOutBack()
                  .setIgnoreTimeScale(true); // roda mesmo em pause
     }
-
     public void HideRestartConfirmationPanel()
     {
         RectTransform panel = _restartConfirmationPanel.transform
@@ -118,16 +122,16 @@ public class UIManager : MonoBehaviour, IGameStateListener
                  .setOnComplete(() => _restartConfirmationPanel.SetActive(false));
 
     }
+    public void ShowCharacterSelectionPanel() => _characterSelectionPanel.SetActive(true);
+    public void HideCharacterSelectionPanel() => _characterSelectionPanel.SetActive(false);
+
+    public void ShowSettingsPanel() => _settingsPanel.SetActive(true);
+    public void HideSettingsPanel() => _settingsPanel.SetActive(false);
+
 
     // MY ACTIONS
-    private void onGamePausedCallBack()
-    {
-        _pausePanel.SetActive(true);
+    private void onGamePausedCallBack() => _pausePanel.SetActive(true);
+    private void onGameResumedCallBack() => _pausePanel.SetActive(false);
 
-    }
-    private void onGameResumedCallBack()
-    {
-        _pausePanel.SetActive(false);
-    }
 
 }

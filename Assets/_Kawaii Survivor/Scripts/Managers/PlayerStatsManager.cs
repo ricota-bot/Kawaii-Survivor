@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,6 +22,14 @@ public class PlayerStatsManager : MonoBehaviour
             addends.Add(kvp.Key, 0); // Cria um Dictionary igual o PlayerStats porem com valores zerados, "Mesmo tamanho e Chave"
             objectAddends.Add(kvp.Key, 0); // Inicializa com Zero
         }
+
+        CharacterSelectionManager.onCharacterSelected += OnCharacterSelectedCallBack;
+    }
+
+    private void OnDestroy()
+    {
+        CharacterSelectionManager.onCharacterSelected -= OnCharacterSelectedCallBack;
+
     }
 
     private void Start()
@@ -71,5 +80,15 @@ public class PlayerStatsManager : MonoBehaviour
     }
 
     public float GetStatValue(Stat stat) => playerStats[stat] + addends[stat] + objectAddends[stat];
+
+
+    // ACTIONS
+    private void OnCharacterSelectedCallBack(CharacterDataSO characterData)
+    {
+        _characterData = characterData;
+        playerStats = _characterData.BaseStats;
+
+        UpdatePlayerStats();
+    }
 
 }

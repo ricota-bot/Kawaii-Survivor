@@ -49,7 +49,6 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
             AddPremiumCurrency((int)premiumCurrencyValue, false); // Caso já temos valor nessa Key "_premiumCurrencyKey"
         else
             AddPremiumCurrency(100, false); // Caso não tenha nenhum valor na chave "_premiumCurrencyKey"
-
     }
 
     public void Save()
