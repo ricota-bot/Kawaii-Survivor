@@ -11,6 +11,10 @@ public class RangeWeapon : Weapon
 
     [Header("Pooling")]
     private ObjectPool<PlayerBullet> _playerBulletPool;
+
+    [Header("Actions")]
+    public static Action OnBulletShoot;
+
     private void Start()
     {
         _playerBulletPool = new ObjectPool<PlayerBullet>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy);
@@ -84,6 +88,9 @@ public class RangeWeapon : Weapon
         //Vector2 direction = _shootingPoint.transform.right;
         PlayerBullet bulletInstance = _playerBulletPool.Get();
         bulletInstance.Shoot(damage, transform.up, isCriticalHit);
+
+        PlayAttackSound();
+        OnBulletShoot?.Invoke();
     }
 
     public override void UpdateStats(PlayerStatsManager playerStatsManager)

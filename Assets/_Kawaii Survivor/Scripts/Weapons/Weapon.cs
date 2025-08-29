@@ -8,7 +8,7 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDepedency
 {
     [Header("Data")]
     [Expandable]
-    [SerializeField] private WeaponDataSO _weaponData;
+    [SerializeField] private WeaponDataSO _weaponData; // Temos duas referencias pois estamos usando o Expandable "NaughtyAttributes"
     public WeaponDataSO WeaponData { get => _weaponData; private set => _weaponData = value; }
 
     [Header("Level")]
@@ -33,6 +33,28 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDepedency
 
     [Header("Debug")]
     [SerializeField] protected bool displayGizmos;
+
+    [Header("Audio")]
+    protected AudioSource audioSource;
+
+
+    private void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.clip = WeaponData.AttackSound;
+        audioSource.volume = 0.65f;
+    }
+
+    protected void PlayAttackSound()
+    {
+        if (!AudioManager.instance.IsSFXOn) // Caso SFX estiver falso, apenas retornamos
+            return;
+
+        // Caso SFX estiver True executa essa parte :)
+        audioSource.pitch = Random.Range(0.85f, 1.2f);
+        audioSource.Play();
+    }
 
     protected Enemy GetClosestEnemy()
     {

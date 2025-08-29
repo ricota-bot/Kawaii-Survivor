@@ -13,6 +13,8 @@ public class WeaponDataSO : ScriptableObject
     [field: SerializeField] public int PurchasePrice { get; private set; }
     [field: SerializeField] public int RecyclePrice { get; private set; }
 
+    [field: SerializeField] public AudioClip AttackSound { get; private set; } // Isto é um AudioClip :)
+
     [HorizontalLine(color: EColor.Yellow)]
     [SerializeField] private float attack;  // Percent
     [SerializeField] private float attackSpeed; // 0

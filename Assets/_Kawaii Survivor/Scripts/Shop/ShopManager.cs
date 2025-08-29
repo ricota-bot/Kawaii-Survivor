@@ -23,10 +23,6 @@ public class ShopManager : MonoBehaviour, IGameStateListener
     [SerializeField] private int _rerollCost;
     [SerializeField] private TextMeshProUGUI _rerollCostText;
 
-    [Header("Chests")]
-    [SerializeField] private TextMeshProUGUI _chestAmountText;
-
-
     [Header("Actions")]
     public static Action onItemPurchased;
 

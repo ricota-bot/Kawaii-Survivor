@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Smirk
   m_EditorClassIdentifier: 
   <CharacterName>k__BackingField: Smirk
-  <Sprite>k__BackingField: {fileID: -6504533043834447420, guid: 7ee7aeee63c643342a6efd22a4cf751d, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 7ee7aeee63c643342a6efd22a4cf751d, type: 3}
   <PurchasePrice>k__BackingField: 600
   attack: 10
   attackSpeed: 1

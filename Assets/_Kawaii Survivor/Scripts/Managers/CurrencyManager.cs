@@ -27,6 +27,7 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
         // ACTIONS
         Candy.OnDropCollected += OnCandyCollectedCallBack;
         Cash.OnDropCollected += OnCashCollectedCallBack;
+
     }
 
     private void OnDestroy()

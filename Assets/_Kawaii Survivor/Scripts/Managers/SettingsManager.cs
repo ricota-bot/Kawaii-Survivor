@@ -14,6 +14,7 @@ public class SettingsManager : MonoBehaviour, IWantToBeSaved
     [SerializeField] private Button askButton;
     [SerializeField] private Button creditsButton;
     [SerializeField] private GameObject creditsPanel;
+    [SerializeField] private GameObject creditsClosePanel;
 
     [Header("Elements")]
     [SerializeField] private Color onColor;
@@ -56,6 +57,9 @@ public class SettingsManager : MonoBehaviour, IWantToBeSaved
     private void Start()
     {
         HideCreditsPanel();
+
+        OnSFXStateChanged?.Invoke(sfxState);
+        OnMusicStateChanged?.Invoke(musicState);
     }
 
     // SFX
@@ -103,11 +107,13 @@ public class SettingsManager : MonoBehaviour, IWantToBeSaved
     private void CreditsButtonCallBack()
     {
         creditsPanel.SetActive(true);
+        creditsClosePanel.SetActive(true);
     }
 
     public void HideCreditsPanel()
     {
         creditsPanel.SetActive(false);
+        creditsClosePanel.SetActive(false);
     }
 
 

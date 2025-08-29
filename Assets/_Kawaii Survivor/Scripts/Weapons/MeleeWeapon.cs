@@ -73,6 +73,8 @@ public class MeleeWeapon : Weapon
 
         _damagedEnemiesList.Clear();
         _animator.speed = 1f / _attackDelay;
+
+        PlayAttackSound();
     }
 
     private void Attacking()

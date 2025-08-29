@@ -22,7 +22,7 @@ MonoBehaviour:
   moveSpeed: 5
   maxHealth: 15
   range: 0
-  healthRecoverySpeed: 10
+  healthRecoverySpeed: 2
   armor: 5
   luck: 0
   dodge: 0

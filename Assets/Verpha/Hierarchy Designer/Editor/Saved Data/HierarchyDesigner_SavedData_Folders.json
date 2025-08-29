@@ -107,6 +107,24 @@
                 "a": 1.0
             },
             "ImageType": 10
+        },
+        {
+            "Name": "AUDIO",
+            "TextColor": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "FontSize": 12,
+            "FontStyle": 1,
+            "ImageColor": {
+                "r": 1.0,
+                "g": 0.5309944748878479,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "ImageType": 0
         }
     ]
 }
